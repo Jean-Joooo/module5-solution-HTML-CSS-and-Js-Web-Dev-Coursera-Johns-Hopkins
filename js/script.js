@@ -10,17 +10,7 @@ $(function () {
   $("#navbarToggle").click(function (event) {
     $(event.target).focus();
   });
-});
-
-(function (global) {
-  var dc = {};
-
-  var homeHtml = "snippets/home-snippet.html";
-  var allCategoriesUrl =
-    "https://coursera-jhu-default-rtdb.firebaseio.com/categories.json";
-  var categoriesTitleHtml = "snippets/categories-title-snippet.html";
-	@@ -24,71 +22,103 @@ $(function () {
-    "https://coursera-jhu-default-rtdb.firebaseio.com/menu_items/";
+	@@ -33,21 +25,17 @@ $(function () {
   var menuItemsTitleHtml = "snippets/menu-items-title.html";
   var menuItemHtml = "snippets/menu-item.html";
 
@@ -40,14 +30,12 @@ $(function () {
     string = string.replace(new RegExp(propToReplace, "g"), propValue);
     return string;
   };
-
   // Remove the class 'active' from home and switch to Menu button
   var switchMenuToActive = function () {
     // Remove 'active' from home button
     var classes = document.querySelector("#navHomeButton").className;
     classes = classes.replace(new RegExp("active", "g"), "");
     document.querySelector("#navHomeButton").className = classes;
-
     // Add 'active' to menu button if not already there
     classes = document.querySelector("#navMenuButton").className;
     if (classes.indexOf("active") == -1) {
@@ -55,7 +43,6 @@ $(function () {
       document.querySelector("#navMenuButton").className = classes;
     }
   };
-
   // On page load (before images or CSS)
   document.addEventListener("DOMContentLoaded", function (event) {
     // On first load, show home view
@@ -68,13 +55,11 @@ $(function () {
       false
     );
   });
-
   // Load the menu categories view
   dc.loadMenuCategories = function () {
     showLoading("#main-content");
     $ajaxUtils.sendGetRequest(allCategoriesUrl, buildAndShowCategoriesHTML);
   };
-
   // Load the menu items view
   // 'categoryShort' is a short_name for a category
   dc.loadMenuItems = function (categoryShort) {
@@ -84,18 +69,19 @@ $(function () {
       buildAndShowMenuItemsHTML
     );
   };
-
   // Builds HTML for the categories page based on the data
   // from the server
   function buildAndShowCategoriesHTML(categories) {
     // Load title snippet of categories page
     $ajaxUtils.sendGetRequest(
       categoriesTitleHtml,
-	@@ -99,49 +129,52 @@ $(function () {
+      function (categoriesTitleHtml) {
+        // Retrieve single category snippet
+        $ajaxUtils.sendGetRequest(
+          categoryHtml,
           function (categoryHtml) {
             // Switch CSS class active to menu button
             switchMenuToActive();
-
             var categoriesViewHtml = buildCategoriesViewHtml(
               categories,
               categoriesTitleHtml,
@@ -109,7 +95,6 @@ $(function () {
       false
     );
   }
-
   // Using categories data and snippets html
   // build categories view HTML to be inserted into page
   function buildCategoriesViewHtml(
@@ -119,7 +104,6 @@ $(function () {
   ) {
     var finalHtml = categoriesTitleHtml;
     finalHtml += "<section class='row'>";
-
     // Loop over categories
     for (var i = 0; i < categories.length; i++) {
       // Insert category values
@@ -130,22 +114,22 @@ $(function () {
       html = insertProperty(html, "short_name", short_name);
       finalHtml += html;
     }
-
     finalHtml += "</section>";
     return finalHtml;
   }
-
   // Builds HTML for the single category page based on the data
   // from the server
   function buildAndShowMenuItemsHTML(categoryMenuItems) {
     // Load title snippet of menu items page
     $ajaxUtils.sendGetRequest(
       menuItemsTitleHtml,
-	@@ -152,101 +185,118 @@ $(function () {
+      function (menuItemsTitleHtml) {
+        // Retrieve single menu item snippet
+        $ajaxUtils.sendGetRequest(
+          menuItemHtml,
           function (menuItemHtml) {
             // Switch CSS class active to menu button
             switchMenuToActive();
-
             var menuItemsViewHtml = buildMenuItemsViewHtml(
               categoryMenuItems,
               menuItemsTitleHtml,
@@ -159,7 +143,6 @@ $(function () {
       false
     );
   }
-
   // Using category and menu items data and snippets html
   // build menu items view HTML to be inserted into page
   function buildMenuItemsViewHtml(
@@ -177,10 +160,8 @@ $(function () {
       "special_instructions",
       categoryMenuItems.category.special_instructions
     );
-
     var finalHtml = menuItemsTitleHtml;
     finalHtml += "<section class='row'>";
-
     // Loop over menu items
     var menuItems = categoryMenuItems.menu_items;
     var catShortName = categoryMenuItems.category.short_name;
@@ -203,43 +184,35 @@ $(function () {
       );
       html = insertProperty(html, "name", menuItems[i].name);
       html = insertProperty(html, "description", menuItems[i].description);
-
       // Add clearfix after every second menu item
       if (i % 2 != 0) {
         html +=
           "<div class='clearfix visible-lg-block visible-md-block'></div>";
       }
-
       finalHtml += html;
     }
-
     finalHtml += "</section>";
     return finalHtml;
   }
-
   // Appends price with '$' if price exists
   function insertItemPrice(html, pricePropName, priceValue) {
     // If not specified, replace with empty string
     if (!priceValue) {
       return insertProperty(html, pricePropName, "");
     }
-
     priceValue = "$" + priceValue.toFixed(2);
     html = insertProperty(html, pricePropName, priceValue);
     return html;
   }
-
   // Appends portion name in parens if it exists
   function insertItemPortionName(html, portionPropName, portionValue) {
     // If not specified, return original string
     if (!portionValue) {
       return insertProperty(html, portionPropName, "");
     }
-
     portionValue = "(" + portionValue + ")";
     html = insertProperty(html, portionPropName, portionValue);
     return html;
   }
-
   global.$dc = dc;
 })(window);
