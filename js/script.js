@@ -192,9 +192,9 @@ function buildAndShowCategoriesHTML (categories) {
           insertHtml("#main-content", categoriesViewHtml);
         },
         false);
-    },
-    false);
-}
+    }
+
+});
 
 
 // Using categories data and snippets html
