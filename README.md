@@ -1,6 +1,6 @@
 Module 5 Assignment Coursera John Hopkins University
 
--------> https://jean-joooo.github.io/module5-solution-HTML-CSS-and-Js-Web-Dev-Coursera-Johns-Hopkins/
+----> https://jean-joooo.github.io/module5-solution-HTML-CSS-and-Js-Web-Dev-Coursera-Johns-Hopkins/
 
 Navigating Specials: HTML, CSS, and JS
 
