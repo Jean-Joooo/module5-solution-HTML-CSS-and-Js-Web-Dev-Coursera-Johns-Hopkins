@@ -1,4 +1,4 @@
-# Coursera | John Hopkins University courses: Module 5 Solution Coursera, HTML, CSS, Js
+## Coursera | John Hopkins University courses: Module 5 Solution Coursera, HTML, CSS, Js
 
 ----> https://jean-joooo.github.io/module5-solution-HTML-CSS-and-Js-Web-Dev-Coursera-Johns-Hopkins/
 
