@@ -1,8 +1,8 @@
-## Coursera | John Hopkins University courses: Module 5 Solution Coursera, HTML, CSS, Js
+## Coursera | John Hopkins University Courses: Module 5 Solution Coursera, HTML, CSS, Js
 
 ----> https://jean-joooo.github.io/module5-solution-HTML-CSS-and-Js-Web-Dev-Coursera-Johns-Hopkins/
 
-Responsive Design & Navigating Specials: HTML, CSS, and Js
+### Responsive Design & Navigating Specials: HTML, CSS, and Js
 
 The primary focus was on creating a seamless experience for users navigating through a menu system, utilizing a combination of HTML, CSS, and JavaScript.
 
